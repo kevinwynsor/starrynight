@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep: #0B0F1A;
+  --bg-card: #121826;
+  --bg-surface: #1A2235;
+  --violet: #7C83FD;
+  --blue: #6EC3FF;
+  --gold: #F4D58D;
+  --text-primary: #E8EAF2;
+  --text-muted: #8891A8;
+  --text-faint: #4A5268;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--bg-deep);
+  overscroll-behavior: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 0px; }
+
+/* Textarea & Input resets */
+textarea, input {
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: var(--text-faint);
+}
+
+/* Star animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.25); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes starBirth {
+  0%   { opacity: 0; transform: scale(0) translateY(0); }
+  60%  { opacity: 1; transform: scale(1.4) translateY(-10px); }
+  100% { opacity: 0.9; transform: scale(1) translateY(-20px); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-fadeUp { animation: fadeUp 0.6s ease forwards; }
+.animate-slideUp { animation: slideUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-pulseGlow { animation: pulseGlow 4s ease-in-out infinite; }
+.animate-starBirth { animation: starBirth 1.2s ease forwards; }
+.animate-shimmer { animation: shimmer 2.5s ease-in-out infinite; }
+
+/* Star particles */
+.star-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0.15;
+}
+
+/* Page transitions */
+.page-enter {
+  animation: fadeUp 0.4s ease forwards;
+}
+
+/* Tab bar safe area */
+.tab-bar {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* Glass surface */
+.glass {
+  background: rgba(18, 24, 38, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Soft border */
+.border-soft {
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.border-violet {
+  border: 1px solid rgba(124,131,253,0.2);
+}
+
+/* Mood icon */
+.mood-btn {
+  transition: all 0.2s ease;
+}
+.mood-btn:active {
+  transform: scale(0.92);
+}
+
+/* CTA button */
+.btn-primary {
+  transition: all 0.25s ease;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Win card hover */
+.win-card {
+  transition: all 0.2s ease;
+}
+.win-card:active {
+  transform: scale(0.98);
+  background: rgba(255,255,255,0.06);
+}

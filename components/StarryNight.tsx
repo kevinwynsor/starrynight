@@ -1,0 +1,349 @@
+"use client";
+import styles from "./StarryNight.module.css";
+import { useState } from "react";
+import Modal from "react-modal";
+
+
+type Action = {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  onClick: () => void;
+};
+
+function RestIcon() {
+  return (
+    <div className={styles.btnIcon}>
+      <span className={`${styles.restZ} ${styles.restZ1}`}>z</span>
+      <span className={`${styles.restZ} ${styles.restZ2}`}>z</span>
+      <span className={`${styles.restZ} ${styles.restZ3}`}>z</span>
+      <div className={styles.restBed} />
+    </div>
+  );
+}
+ 
+function FireIcon() {
+  return (
+    <div className={styles.btnIcon}>
+      <div className={styles.fireWrap}>
+        <div className={`${styles.spark} ${styles.sp1}`} />
+        <div className={`${styles.spark} ${styles.sp2}`} />
+        <div className={`${styles.spark} ${styles.sp3}`} />
+        <div className={`${styles.flame} ${styles.flameA}`} />
+        <div className={`${styles.flame} ${styles.flameB}`} />
+        <div className={`${styles.flame} ${styles.flameC}`} />
+        <div className={`${styles.flame} ${styles.flameD}`} />
+        <div className={`${styles.flame} ${styles.flameE}`} />
+        <div className={styles.fireBase} />
+        <div className={styles.fireLog} />
+      </div>
+    </div>
+  );
+}
+ 
+function StokeIcon() {
+  return (
+    <div className={styles.btnIcon}>
+      <div className={styles.stokeWrap}>
+        <div className={`${styles.spark} ${styles.sp1}`} />
+        <div className={`${styles.spark} ${styles.sp2}`} />
+        <div className={`${styles.spark} ${styles.sp3}`} />
+        <div className={`${styles.stokeFlame} ${styles.stfA}`} />
+        <div className={`${styles.stokeFlame} ${styles.stfB}`} />
+        <div className={`${styles.stokeFlame} ${styles.stfC}`} />
+        <div className={`${styles.stokeFlame} ${styles.stfD}`} />
+        <div className={`${styles.stokeFlame} ${styles.stfE}`} />
+        <div className={styles.stokeBase} />
+        <div className={styles.stokeStick} />
+      </div>
+    </div>
+  );
+}
+ 
+function StoryIcon() {
+  return (
+    <div className={`${styles.btnIcon} ${styles.storyIconWrap}`}>
+      <div className={styles.storyBubble}>
+        <div className={styles.storyInner}>?!</div>
+      </div>
+      <div className={styles.storyLogs} />
+    </div>
+  );
+}
+ 
+interface CampfireActionsProps {
+  onAction?: (action: boolean) => void;
+}
+ 
+export function CampfireActions({ onAction }: CampfireActionsProps) {
+  const actions: Action[] = [
+    {
+      id: "rest",
+      label: "Rest",
+      icon: 'let it out',
+      onClick: () => onAction?.(true),
+    },
+  ];
+    return (
+    <div className={styles.actions}>
+      {actions.map((action) => (
+        <button
+          key={action.id}
+          className={styles.actionBtn}
+          onClick={action.onClick}
+          aria-label={action.label}
+        >
+          <div className={styles.btnCard}>{action.icon}</div>
+          <span className={styles.btnLabel}>{action.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function StarryNight() {
+  const [text, setText] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  
+  function openModal() {
+    setIsOpen(!isOpen);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+function ActionModal() {
+  const [text, setText] = useState("");
+  const meta = "What's on your mind?"
+
+  const handleSubmit = () => {
+    if (!text.trim()) return;
+    setText("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+ 
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      onAfterClose={() => setText("")}
+      closeTimeoutMS={150}
+      ariaHideApp={false}
+      overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
+      className="relative w-full max-w-sm mx-4 outline-none"
+    >
+      {/* Card */}
+      <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 flex flex-col gap-4">
+ 
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
+            {meta}
+          </h2>
+          <button
+            onClick={closeModal}
+            className="text-[#3a4e6a] hover:text-[#8ab0d8] transition-colors text-lg leading-none"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+ 
+        {/* Divider */}
+        <div className="h-px bg-white/5" />
+ 
+        {/* Textarea */}
+        <textarea
+          rows={4}
+          autoFocus
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={meta}
+          className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors"
+        />
+ 
+        {/* Footer */}
+        <div className="flex justify-end">
+          <button
+            onClick={handleSubmit}
+            disabled={!text.trim()}
+            className="px-5 py-2 rounded-lg bg-[#162d54] border border-[#2a4f8a]/40 text-[#89b4e8] text-xs font-medium tracking-wider uppercase hover:bg-[#1e3f70] hover:text-[#b8d4f8] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+  const now = new Date();
+  const hour = now.getHours();
+  const greeting =
+    hour < 5
+      ? "Still awake"
+      : hour < 12
+      ? "Good morning"
+      : hour < 17
+      ? "Good afternoon"
+      : hour < 21
+      ? "Good evening"
+      : "Tonight";
+  
+  // Generate stars
+  const stars = Array.from({ length: 180 }, (_, i) => ({ // length is the number of stars
+    id: i,
+    top: Math.random() * 75,
+    left: Math.random() * 100,
+    size: Math.random() * 2.5 + 0.5,
+    delay: Math.random() * 6,
+    duration: Math.random() * 3 + 2,
+    opacity: Math.random() * 0.7 + 0.3,
+  }));
+
+  // Shooting stars
+  const shootingStars = Array.from({ length: 5 }, (_, i) => ({
+    id: i,
+    top: Math.random() * 40 + 5,
+    left: Math.random() * 60 + 10,
+    delay: i * 4 + Math.random() * 3,
+  }));
+
+  return (
+    <div className={styles.scene}>
+      {/* Sky gradient layers */}
+      <div className={styles.sky} />
+      <div className={styles.skyGlow} />
+
+      {/* Moon */}
+      <div className={styles.moonContainer}>
+        <div className={styles.moon}>
+          <div className={styles.moonCrater1} />
+          <div className={styles.moonCrater2} />
+          <div className={styles.moonCrater3} />
+        </div>
+        <div className={styles.moonHalo} />
+      </div>
+
+      {/* Stars */}
+      {stars.map((s) => (
+        <div
+          key={s.id}
+          className={styles.star}
+          style={{
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            width: `${s.size}px`,
+            height: `${s.size}px`,
+            animationDelay: `${s.delay}s`,
+            animationDuration: `${s.duration}s`,
+            opacity: s.opacity,
+          }}
+        />
+      ))}
+
+      {/* Shooting stars */}
+      {shootingStars.map((s) => (
+        <div
+          key={s.id}
+          className={styles.shootingStar}
+          style={{
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            animationDelay: `${s.delay}s`,
+          }}
+        />
+      ))}
+
+      {/* Milky Way band */}
+      <div className={styles.milkyWay} />
+      {/* Top label */}
+      <div className="relative z-10 pt-20 text-center animate-fadeUp" style={{ animationDelay: "0.1s", opacity: 0 }}>
+        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">{greeting}</p>
+        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are currently 180 stars in the sky</p>
+      </div>
+      <CampfireActions onAction={setIsOpen}/>
+      <ActionModal />
+
+      {/* Rolling hills / terrain */}
+      {/* <div className={styles.hillFar} /> */}
+      {/* <div className={styles.hillMid} /> */}
+      {/* <div className={styles.hillNear} /> */}
+
+      {/* Trees silhouettes */}
+      {/* <div className={styles.treeLine}>
+        {Array.from({ length: 14 }, (_, i) => (
+          <div
+            key={i}
+            className={styles.tree}
+            style={{
+              left: `${i * 7.5 - 2}%`,
+              height: `${55 + Math.sin(i * 1.7) * 20}px`,
+              width: `${18 + Math.cos(i * 2.1) * 5}px`,
+              animationDelay: `${i * 0.3}s`,
+            }}
+          />
+        ))}
+      </div> */}
+
+      {/* Ground */}
+      {/* <div className={styles.ground} /> */}
+
+      {/* Campfire glow on ground */}
+      {/* <div className={styles.campfireGlow} /> */}
+
+      {/* Human figure */}
+      {/* <div className={styles.human}> */}
+        {/* Head */}
+        {/* <div className={styles.humanHead} /> */}
+        {/* Body */}
+        {/* <div className={styles.humanBody} /> */}
+        {/* Left arm reaching toward fire */}
+        {/* <div className={styles.humanArmLeft} /> */}
+        {/* Right arm resting */}
+        {/* <div className={styles.humanArmRight} /> */}
+        {/* Legs */}
+        {/* <div className={styles.humanLegLeft} /> */}
+        {/* <div className={styles.humanLegRight} /> */}
+      {/* </div> */}
+
+      {/* Campfire */}
+      {/* <div className={styles.campfire}> */}
+        {/* Logs */}
+        {/* <div className={styles.logLeft} /> */}
+        {/* <div className={styles.logRight} /> */}
+        {/* Embers base */}
+        {/* <div className={styles.embers} /> */}
+        {/* Flames */}
+        {/* <div className={`${styles.flame} ${styles.flameBase}`} /> */}
+        {/* <div className={`${styles.flame} ${styles.flameMid}`} /> */}
+        {/* <div className={`${styles.flame} ${styles.flameTip}`} /> */}
+        {/* <div className={`${styles.flame} ${styles.flameLeft}`} /> */}
+        {/* <div className={`${styles.flame} ${styles.flameRight}`} /> */}
+        {/* Sparks */}
+        {/* {Array.from({ length: 8 }, (_, i) => (
+          <div
+            key={i}
+            className={styles.spark}
+            style={{
+              left: `${30 + Math.random() * 40}%`,
+              animationDelay: `${i * 0.35}s`,
+              animationDuration: `${1.2 + Math.random() * 0.8}s`,
+            }}
+          />
+        ))}
+      </div> */}
+
+      {/* Reflection on ground */}
+      {/* <div className={styles.fireReflection} /> */}
+    </div>
+  );
+}
