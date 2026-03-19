@@ -1,6 +1,7 @@
 "use client";
+import { addStar, getStars } from "@/app/actions";
 import styles from "./StarryNight.module.css";
-import { useState } from "react";
+import { useActionState, useState, useEffect, use } from "react";
 import Modal from "react-modal";
 
 
@@ -9,72 +10,11 @@ type Action = {
   label: string;
   icon: React.ReactNode;
   onClick: () => void;
-};
-
-function RestIcon() {
-  return (
-    <div className={styles.btnIcon}>
-      <span className={`${styles.restZ} ${styles.restZ1}`}>z</span>
-      <span className={`${styles.restZ} ${styles.restZ2}`}>z</span>
-      <span className={`${styles.restZ} ${styles.restZ3}`}>z</span>
-      <div className={styles.restBed} />
-    </div>
-  );
 }
- 
-function FireIcon() {
-  return (
-    <div className={styles.btnIcon}>
-      <div className={styles.fireWrap}>
-        <div className={`${styles.spark} ${styles.sp1}`} />
-        <div className={`${styles.spark} ${styles.sp2}`} />
-        <div className={`${styles.spark} ${styles.sp3}`} />
-        <div className={`${styles.flame} ${styles.flameA}`} />
-        <div className={`${styles.flame} ${styles.flameB}`} />
-        <div className={`${styles.flame} ${styles.flameC}`} />
-        <div className={`${styles.flame} ${styles.flameD}`} />
-        <div className={`${styles.flame} ${styles.flameE}`} />
-        <div className={styles.fireBase} />
-        <div className={styles.fireLog} />
-      </div>
-    </div>
-  );
-}
- 
-function StokeIcon() {
-  return (
-    <div className={styles.btnIcon}>
-      <div className={styles.stokeWrap}>
-        <div className={`${styles.spark} ${styles.sp1}`} />
-        <div className={`${styles.spark} ${styles.sp2}`} />
-        <div className={`${styles.spark} ${styles.sp3}`} />
-        <div className={`${styles.stokeFlame} ${styles.stfA}`} />
-        <div className={`${styles.stokeFlame} ${styles.stfB}`} />
-        <div className={`${styles.stokeFlame} ${styles.stfC}`} />
-        <div className={`${styles.stokeFlame} ${styles.stfD}`} />
-        <div className={`${styles.stokeFlame} ${styles.stfE}`} />
-        <div className={styles.stokeBase} />
-        <div className={styles.stokeStick} />
-      </div>
-    </div>
-  );
-}
- 
-function StoryIcon() {
-  return (
-    <div className={`${styles.btnIcon} ${styles.storyIconWrap}`}>
-      <div className={styles.storyBubble}>
-        <div className={styles.storyInner}>?!</div>
-      </div>
-      <div className={styles.storyLogs} />
-    </div>
-  );
-}
- 
 interface CampfireActionsProps {
   onAction?: (action: boolean) => void;
 }
- 
+
 export function CampfireActions({ onAction }: CampfireActionsProps) {
   const actions: Action[] = [
     {
@@ -102,9 +42,22 @@ export function CampfireActions({ onAction }: CampfireActionsProps) {
 }
 
 export default function StarryNight() {
-  const [text, setText] = useState("");
+  const [state, formCreateStar, createStarIsPending] = useActionState(addStar, null)
+  const [starCount, setStarCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [afterRant, setAfterRant] = useState(false);
 
+  async function fetchStars() {
+    const response = await getStars();
+    console.log(response)
+    setStarCount(response.length);
+  }
+
+  useEffect(() => {
+    fetchStars();
+    closeModal();
+    setAfterRant(true)
+  }, [state, createStarIsPending]);
   
   function openModal() {
     setIsOpen(!isOpen);
@@ -112,23 +65,13 @@ export default function StarryNight() {
 
   function closeModal() {
     setIsOpen(false);
+    setAfterRant(false);
   }
+
 function ActionModal() {
-  const [text, setText] = useState("");
   const meta = "What's on your mind?"
-
-  const handleSubmit = () => {
-    if (!text.trim()) return;
-    setText("");
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
- 
+  
+  const [text, setText] = useState("");
   return (
     <Modal
       isOpen={isOpen}
@@ -158,26 +101,57 @@ function ActionModal() {
  
         {/* Divider */}
         <div className="h-px bg-white/5" />
+        <form action={formCreateStar} className="">
+          {/* Textarea */}
+          <textarea
+            rows={4}
+            autoFocus
+            value={text}
+            name="content"
+            onChange={(e) => setText(e.target.value)}
+            placeholder={meta}
+            className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors"
+          />
+  
+          {/* Footer */}
+          <div className="flex justify-end">
+            <button
+              disabled={!text.trim()}
+              className="px-5 py-2 rounded-lg bg-[#162d54] border border-[#2a4f8a]/40 text-[#89b4e8] text-xs font-medium tracking-wider uppercase hover:bg-[#1e3f70] hover:text-[#b8d4f8] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </Modal>
+  );
+}
+
+function AfterModal() {
+
+  return (
+    <Modal
+      isOpen={afterRant}
+      onRequestClose={closeModal}
+      ariaHideApp={false}
+      overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
+      className="relative w-full max-w-sm mx-4 outline-none"
+    >
+      {/* Card */}
+      <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 flex flex-col gap-4">
  
-        {/* Textarea */}
-        <textarea
-          rows={4}
-          autoFocus
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={meta}
-          className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors"
-        />
- 
-        {/* Footer */}
-        <div className="flex justify-end">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
+            You did well today babi i love you c:
+          </h2>
           <button
-            onClick={handleSubmit}
-            disabled={!text.trim()}
-            className="px-5 py-2 rounded-lg bg-[#162d54] border border-[#2a4f8a]/40 text-[#89b4e8] text-xs font-medium tracking-wider uppercase hover:bg-[#1e3f70] hover:text-[#b8d4f8] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            onClick={closeModal}
+            className="text-[#3a4e6a] hover:text-[#8ab0d8] transition-colors text-lg leading-none"
+            aria-label="Close"
           >
-            Submit
+            ✕
           </button>
         </div>
       </div>
@@ -199,7 +173,7 @@ function ActionModal() {
       : "Tonight";
   
   // Generate stars
-  const stars = Array.from({ length: 180 }, (_, i) => ({ // length is the number of stars
+  const stars = Array.from({ length: starCount }, (_, i) => ({ 
     id: i,
     top: Math.random() * 75,
     left: Math.random() * 100,
@@ -268,10 +242,11 @@ function ActionModal() {
       {/* Top label */}
       <div className="relative z-10 pt-20 text-center animate-fadeUp" style={{ animationDelay: "0.1s", opacity: 0 }}>
         <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">{greeting}</p>
-        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are currently 180 stars in the sky</p>
+        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are {starCount} stars in the sky</p>
       </div>
       <CampfireActions onAction={setIsOpen}/>
       <ActionModal />
+      <AfterModal/>
 
       {/* Rolling hills / terrain */}
       {/* <div className={styles.hillFar} /> */}
