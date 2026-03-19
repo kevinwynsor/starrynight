@@ -56,7 +56,8 @@ export default function StarryNight() {
   useEffect(() => {
     fetchStars();
     closeModal();
-  }, [state, createStarIsPending]);
+    if(state) setAfterRant(true)
+  }, [state]);
   
   function openModal() {
     setIsOpen(!isOpen);
