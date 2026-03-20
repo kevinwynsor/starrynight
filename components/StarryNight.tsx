@@ -43,14 +43,13 @@ export function CampfireActions({ onAction }: CampfireActionsProps) {
 
 export default function StarryNight() {
   const [state, formCreateStar, createStarIsPending] = useActionState(addStar, null)
-  const [starCount, setStarCount] = useState(0);
+  const [starCount, setStarCount] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [afterRant, setAfterRant] = useState(false);
 
   async function fetchStars() {
     const response = await getStars();
-    console.log(response)
-    setStarCount(response.length);
+    setStarCount(response.length.toString());
   }
 
   useEffect(() => {
@@ -173,7 +172,7 @@ function AfterModal() {
       : "Tonight";
   
   // Generate stars
-  const stars = Array.from({ length: starCount }, (_, i) => ({ 
+  const stars = Array.from({ length: parseInt(starCount) }, (_, i) => ({ 
     id: i,
     top: Math.random() * 75,
     left: Math.random() * 100,
@@ -242,7 +241,8 @@ function AfterModal() {
       {/* Top label */}
       <div className="relative z-10 pt-20 text-center animate-fadeUp" style={{ animationDelay: "0.1s", opacity: 0 }}>
         <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">{greeting}</p>
-        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are {starCount} stars in the sky</p>
+        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are {starCount ? starCount : <div className={styles.divStar}/>} stars in the sky</p>
+        
       </div>
       <CampfireActions onAction={setIsOpen}/>
       <ActionModal />
