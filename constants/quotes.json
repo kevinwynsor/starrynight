@@ -1,68 +1,138 @@
 {
   "messages": [
-    "You made it through today—and that already counts as a win.",
-    "Even small steps forward matter more than standing still.",
-    "It’s okay to feel everything. You’re still moving forward.",
-    "You’re doing better than you think, even if it doesn’t feel like it.",
-    "One hard day doesn’t erase all your progress.",
-    "Rest if you need to—but don’t give up on yourself.",
-    "Your effort matters, even when no one else sees it.",
-    "You survived today. That’s strength, not weakness.",
-    "Growth is messy. You’re allowed to figure things out slowly.",
-    "You’re not alone in feeling this way—and it will pass."
+    {
+      "text": "You made it through today—and that already counts as a win.",
+      "body": "Not every day needs to look like progress. Showing up, even on the hardest days, is its own kind of victory."
+    },
+    {
+      "text": "Even small steps forward matter more than standing still.",
+      "body": "Progress doesn't have to be dramatic. Every tiny move in the right direction adds up to something real over time."
+    },
+    {
+      "text": "It's okay to feel everything. You're still moving forward.",
+      "body": "Your emotions don't cancel out your strength. Feeling deeply is part of being human—and it doesn't stop you from growing."
+    },
+    {
+      "text": "You're doing better than you think, even if it doesn't feel like it.",
+      "body": "Our hardest moments often hide how far we've actually come. Give yourself credit for things you haven't even noticed yet."
+    },
+    {
+      "text": "One hard day doesn't erase all your progress.",
+      "body": "A rough patch doesn't undo the work you've put in. Your foundation is still there—solid, even when things feel shaky."
+    },
+    {
+      "text": "Rest if you need to—but don't give up on yourself.",
+      "body": "Rest is not the same as retreat. Taking care of yourself today is what makes tomorrow possible."
+    },
+    {
+      "text": "Your effort matters, even when no one else sees it.",
+      "body": "The quiet battles you fight alone still count. The work you do in the dark builds the person you're becoming in the light."
+    },
+    {
+      "text": "You survived today. That's strength, not weakness.",
+      "body": "Endurance is one of the most underrated forms of courage. Making it through is always enough."
+    },
+    {
+      "text": "Growth is messy. You're allowed to figure things out slowly.",
+      "body": "There's no deadline on becoming who you're meant to be. Give yourself the grace to learn at your own pace."
+    },
+    {
+      "text": "You're not alone in feeling this way—and it will pass.",
+      "body": "What you're carrying right now is heavy, but it's not permanent. Others have walked this road and made it through—and so will you."
+    }
   ],
   "quotes": [
-    "This too shall pass.",
-    "You don’t have to have it all figured out to move forward.",
-    "Feelings are temporary, but strength is built through them.",
-    "Healing isn’t linear—and that’s okay.",
-    "Storms don’t last forever.",
-    "You are allowed to outgrow what once hurt you.",
-    "Your current situation is not your final destination.",
-    "It’s okay to slow down. Just don’t stop.",
-    "You’ve overcome so much already—don’t forget that.",
-    "Sometimes surviving is the bravest thing you can do."
+    {
+      "text": "This too shall pass.",
+      "body": "Whatever you're holding onto right now—the pain, the uncertainty, the exhaustion—it is not your forever. This season will change."
+    },
+    {
+      "text": "You don't have to have it all figured out to move forward.",
+      "body": "Clarity comes with movement, not before it. Taking one step without a full map is still progress."
+    },
+    {
+      "text": "Feelings are temporary, but strength is built through them.",
+      "body": "Every emotion you sit with, every wave you ride through—it's quietly building something durable inside you."
+    },
+    {
+      "text": "Healing isn't linear—and that's okay.",
+      "body": "Some days you'll take two steps forward and one step back. That's not failure—that's the actual shape of healing for most people."
+    },
+    {
+      "text": "Storms don't last forever.",
+      "body": "No matter how relentless this season feels, weather changes. The stillness after the storm is real—and it's coming for you too."
+    },
+    {
+      "text": "You are allowed to outgrow what once hurt you.",
+      "body": "You don't have to stay defined by your wounds. Growth means leaving behind what no longer fits who you're becoming."
+    },
+    {
+      "text": "Your current situation is not your final destination.",
+      "body": "Where you are right now is a chapter, not the whole story. The best parts of your life can still be ahead of you."
+    },
+    {
+      "text": "It's okay to slow down. Just don't stop.",
+      "body": "You're not required to sprint through recovery. A slower pace is still a pace—and it's one you can actually sustain."
+    },
+    {
+      "text": "You've overcome so much already—don't forget that.",
+      "body": "Your history is proof of your resilience. Look back at what you've already survived before you doubt what you can handle now."
+    },
+    {
+      "text": "Sometimes surviving is the bravest thing you can do.",
+      "body": "Not every day calls for triumph. On the days when just getting through is all you have—that is enough, and it is brave."
+    }
   ],
   "verses": [
     {
       "text": "Do not be anxious about anything… and the peace of God… will guard your hearts and your minds.",
-      "verse": "Philippians 4:6-7"
+      "verse": "Philippians 4:6-7",
+      "body": "When worry feels overwhelming, you can bring it all to God. His peace—beyond what logic can explain—steps in to protect you."
     },
     {
       "text": "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
-      "verse": "Psalm 34:18"
+      "verse": "Psalm 34:18",
+      "body": "You are not invisible in your pain. God draws nearest to those who are hurting the most—and He is near to you now."
     },
     {
       "text": "Come to me, all you who are weary and burdened, and I will give you rest.",
-      "verse": "Matthew 11:28"
+      "verse": "Matthew 11:28",
+      "body": "You don't have to carry this alone. This is an open invitation—bring your exhaustion, your heaviness, and find rest in Him."
     },
     {
       "text": "Do not fear, for I am with you… I will strengthen you and help you.",
-      "verse": "Isaiah 41:10"
+      "verse": "Isaiah 41:10",
+      "body": "Fear loses its grip when you remember you're not facing this alone. God's presence is your steady ground when everything else feels uncertain."
     },
     {
       "text": "Cast your cares on the Lord and he will sustain you.",
-      "verse": "Psalm 55:22"
+      "verse": "Psalm 55:22",
+      "body": "You weren't meant to hold it all together by yourself. Hand it over—God is strong enough to carry what you can't."
     },
     {
       "text": "My grace is sufficient for you, for my power is made perfect in weakness.",
-      "verse": "2 Corinthians 12:9"
+      "verse": "2 Corinthians 12:9",
+      "body": "Your weakness is not disqualifying. It's actually where God's strength shows up most clearly—and His grace is more than enough for today."
     },
     {
       "text": "Peace I leave with you; my peace I give you… Do not let your hearts be troubled.",
-      "verse": "John 14:27"
+      "verse": "John 14:27",
+      "body": "This peace isn't fragile or conditional—it's a gift already given. Let it settle into the parts of you that feel restless and afraid."
     },
     {
       "text": "His mercies never come to an end; they are new every morning.",
-      "verse": "Lamentations 3:22-23"
+      "verse": "Lamentations 3:22-23",
+      "body": "Yesterday's weight doesn't follow you into today. Every morning is a fresh start—God's mercy is renewed before you even open your eyes."
     },
     {
-      "text": "The pain you’ve been feeling can’t compare to the joy that is coming.",
-      "verse": "Romans 8:18"
+      "text": "The pain you've been feeling can't compare to the joy that is coming.",
+      "verse": "Romans 8:18",
+      "body": "What you're enduring now is real—but it's not the final word. Something far greater than this pain is being prepared for you."
     },
     {
       "text": "Be strong and courageous… for the Lord your God will be with you wherever you go.",
-      "verse": "Joshua 1:9"
+      "verse": "Joshua 1:9",
+      "body": "Courage doesn't mean going it alone—it means stepping forward knowing God goes with you into every unknown place."
     }
   ]
 }

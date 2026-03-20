@@ -7,11 +7,17 @@ import Modal from "react-modal";
 type Verse = {
   text: string
   verse: string
+  body: string
+}
+
+type NonVerse = {
+  text: string
+  body: string
 }
 
 type Content =
-  | { type: 'message'; value: string }
-  | { type: 'quote'; value: string }
+  | { type: 'message'; value: NonVerse }
+  | { type: 'quote'; value: NonVerse }
   | { type: 'verse'; value: Verse }
 
 export default function Quotes({afterRant, closeModal}: {afterRant: boolean, closeModal: () => void}) {
@@ -51,21 +57,32 @@ export default function Quotes({afterRant, closeModal}: {afterRant: boolean, clo
           >
             ✕
           </button>
+          <span className={`text-sm font-semibold tracking-widest uppercase text-sky-300 border-sky-800/40`}>
+            Message From the Moon
+          </span>
         {/* Header */}
-        <div className="flex flex-col items-center min-h-52 place-content-center">
+        <div className="flex flex-col items-start min-h-52 place-content-center gap-5">
           {content.type === 'verse' ? (
           <>
-            <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
+            <h2 className="text-base font-medium leading-snug tracking-tight font-serif text-[#7d9acc] italic">
               {content.value.text} 
             </h2>
-            <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
+            <h2 className="text-sm leading-relaxed text-[#7d9acc]">
+              {content.value.body} 
+            </h2>
+            <h2 className="text-xs tracking-wide text-[#7d9acc]">
               — {content.value.verse}
             </h2>
           </>
           ) : (
-            <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
-              {content.value}
-            </h2>
+            <>
+              <h2 className="text-sm leading-relaxed text-[#7d9acc] italic font-medium">
+                {content.value.text}
+              </h2>
+              <h2 className="text-xs tracking-wide text-[#7d9acc]">
+                {content.value.body}
+              </h2>
+            </>
           )}
         </div>
       </div>
