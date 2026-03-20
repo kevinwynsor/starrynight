@@ -3,11 +3,33 @@ import { prisma } from '@/lib/db'
 
 //get requests
 export async function getStars() {
+  const now = new Date();
+
+  const startOfDay = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    0, 0, 0, 0
+  );
+
+  const endOfDay = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    23, 59, 59, 999
+  );
+
   return await prisma.stars.findMany({
+    where: {
+      createdAt: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
     orderBy: {
       createdAt: 'desc',
     },
-  })
+  });
 }
 
 //post requests

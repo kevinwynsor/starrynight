@@ -3,7 +3,7 @@ import { addStar, getStars } from "@/app/actions";
 import styles from "./StarryNight.module.css";
 import { useActionState, useState, useEffect, use } from "react";
 import Modal from "react-modal";
-
+import Quotes from "./Quotes";
 
 type Action = {
   id: string;
@@ -127,37 +127,6 @@ function ActionModal() {
   );
 }
 
-function AfterModal() {
-
-  return (
-    <Modal
-      isOpen={afterRant}
-      onRequestClose={closeModal}
-      ariaHideApp={false}
-      overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
-      className="relative w-full max-w-sm mx-4 outline-none"
-    >
-      {/* Card */}
-      <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 flex flex-col gap-4">
- 
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
-            You did well today babi i love you c:
-          </h2>
-          <button
-            onClick={closeModal}
-            className="text-[#3a4e6a] hover:text-[#8ab0d8] transition-colors text-lg leading-none"
-            aria-label="Close"
-          >
-            ✕
-          </button>
-        </div>
-      </div>
-    </Modal>
-  );
-}
-
   const now = new Date();
   const hour = now.getHours();
   const greeting =
@@ -246,7 +215,7 @@ function AfterModal() {
       </div>
       <CampfireActions onAction={setIsOpen}/>
       <ActionModal />
-      <AfterModal/>
+      <Quotes afterRant={true} closeModal={closeModal}/>
 
       {/* Rolling hills / terrain */}
       {/* <div className={styles.hillFar} /> */}
