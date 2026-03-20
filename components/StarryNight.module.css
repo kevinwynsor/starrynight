@@ -790,3 +790,41 @@
     transform: rotate(360deg);
   }
 }
+
+.hidingStar {
+  width: 20px;
+  height: 20px;
+  background: #F8CA00;
+  display: inline-block;
+  clip-path: polygon(
+    50% 0%, 
+    61% 35%, 
+    98% 35%, 
+    68% 57%, 
+    79% 91%, 
+    50% 70%, 
+    21% 91%, 
+    32% 57%, 
+    2% 35%, 
+    39% 35%
+  );
+
+  animation: starAppear 3.5s cubic-bezier(0.34, 1.56, 0.64, 1) normal;
+}
+
+@keyframes starAppear {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1) rotate(340deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(360deg);
+    opacity: 1;
+  }
+}

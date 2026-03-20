@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import data from '@/constants/quotes.json' // adjust path if needed
 import Modal from "react-modal";
+import styles from "./StarryNight.module.css";
 
 type Verse = {
   text: string
@@ -48,6 +49,9 @@ export default function Quotes({afterRant, closeModal}: {afterRant: boolean, clo
       overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
       className="relative w-full max-w-sm mx-4 outline-none"
     >
+      <div className='text-center'>
+      <div className={styles.hidingStar}/>
+      </div>
       {/* Card */}
       <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 gap-4 items-center justify-between">
           <button
@@ -61,7 +65,7 @@ export default function Quotes({afterRant, closeModal}: {afterRant: boolean, clo
             Message From the Moon
           </span>
         {/* Header */}
-        <div className="flex flex-col items-start min-h-52 place-content-center gap-5">
+        <div className="flex flex-col items-start min-h-40 place-content-center gap-5">
           {content.type === 'verse' ? (
           <>
             <h2 className="text-base font-medium leading-snug tracking-tight font-serif text-[#7d9acc] italic">
