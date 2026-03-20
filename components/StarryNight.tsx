@@ -46,6 +46,7 @@ export default function StarryNight() {
   const [starCount, setStarCount] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [afterRant, setAfterRant] = useState(false);
+  const [showStar, setShowStar] = useState(false);
 
   async function fetchStars() {
     const response = await getStars();
@@ -55,16 +56,29 @@ export default function StarryNight() {
   useEffect(() => {
     fetchStars();
     closeModal();
-    if(state) setAfterRant(true)
+    if(state) toggleAfterRant();
   }, [state]);
-  
-  function openModal() {
-    setIsOpen(!isOpen);
+
+  useEffect(() => {
+    if(isOpen) setShowStar(false);
+  }, [isOpen]);
+
+  useEffect(() => {
+    console.log('showStar', showStar);
+  }, [showStar]);
+
+  function toggleAfterRant() {
+    setAfterRant(!afterRant);
   }
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function closeQuoteModal() {
+    setIsOpen(false);
     setAfterRant(false);
+    setShowStar(true)
   }
 
 function ActionModal() {
@@ -204,7 +218,17 @@ function ActionModal() {
           }}
         />
       ))}
-
+      {showStar && (
+        <div
+          key={showStar.toString()}
+          className={styles.oneTimeShootingStar}
+          style={{
+            top: `${10 * 40 + 5}px`,
+            left: `${5 * 60 + 10}px`
+        }}
+      />
+        )}
+      
       {/* Milky Way band */}
       <div className={styles.milkyWay} />
       {/* Top label */}
@@ -215,7 +239,7 @@ function ActionModal() {
       </div>
       <CampfireActions onAction={setIsOpen}/>
       <ActionModal />
-      <Quotes afterRant={true} closeModal={closeModal}/>
+      <Quotes afterRant={afterRant} closeModal={closeQuoteModal}/>
 
       {/* Rolling hills / terrain */}
       {/* <div className={styles.hillFar} /> */}
