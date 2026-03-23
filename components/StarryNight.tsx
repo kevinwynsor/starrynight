@@ -142,17 +142,23 @@ function ActionModal() {
 }
 
   const now = new Date();
-  const hour = now.getHours();
+  const hour = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Manila',
+    hour: '2-digit',
+    hour12: false
+  }).format(now);
   const greeting =
-    hour < 5
+    parseInt(hour) < 5
       ? "Still awake"
-      : hour < 12
+      : parseInt(hour) < 12
       ? "Good morning"
-      : hour < 17
+      : parseInt(hour) < 17
       ? "Good afternoon"
-      : hour < 21
+      : parseInt(hour) < 24
       ? "Good evening"
       : "Tonight";
+
+      
   
   // Generate stars
   const stars = Array.from({ length: parseInt(starCount) }, (_, i) => ({ 
