@@ -1,5 +1,6 @@
 "use server"
 import { prisma } from '@/lib/db'
+import { supabase } from '@/lib/supabase';
 
 //get requests
 export async function getStars() {
@@ -40,6 +41,10 @@ export async function addStar(prevState: unknown, data: FormData) {
       content: data.get('content') as string,
     },
   })
+  const channel = supabase.channel('stars')
+
+  const send = await channel.httpSend('new_star',{msg: 'newStar'})
+
   return { success: true }
   }catch(error){
     console.error('Error', error);

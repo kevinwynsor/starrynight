@@ -4,6 +4,7 @@ import styles from "./StarryNight.module.css";
 import { useActionState, useState, useEffect, use } from "react";
 import Modal from "react-modal";
 import Quotes from "./Quotes";
+import { supabase } from "@/lib/supabase";
 
 type Action = {
   id: string;
@@ -54,6 +55,19 @@ export default function StarryNight() {
   }
 
   useEffect(() => {
+    const channel = supabase.channel('stars')
+    channel
+      .on('broadcast', { event: 'new_star' }, (payload) => {
+        setStarCount((prevCount) => (parseInt(prevCount) + 1).toString());
+      }).subscribe((status) => {
+      console.log('STATUS:', status);
+      });
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [])
+
+  useEffect(() => {
     fetchStars();
     closeModal();
     if(state) toggleAfterRant();
@@ -63,9 +77,6 @@ export default function StarryNight() {
     if(isOpen) setShowStar(false);
   }, [isOpen]);
 
-  useEffect(() => {
-    console.log('showStar', showStar);
-  }, [showStar]);
 
   function toggleAfterRant() {
     setAfterRant(!afterRant);
