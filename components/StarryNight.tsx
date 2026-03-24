@@ -70,8 +70,7 @@ export default function StarryNight() {
 
   useEffect(() => {
     fetchStars();
-    closeModal();
-    if(state) toggleAfterRant();
+    console.log('fetching stars');
   }, [state]);
 
   useEffect(() => {
@@ -80,6 +79,7 @@ export default function StarryNight() {
 
 
   function toggleAfterRant() {
+    closeModal();
     setAfterRant(!afterRant);
   }
 
@@ -90,6 +90,7 @@ export default function StarryNight() {
   function closeQuoteModal() {
     setIsOpen(false);
     setAfterRant(false);
+    setShowStar(true)
   }
 
 function ActionModal() {
@@ -125,7 +126,12 @@ function ActionModal() {
  
         {/* Divider */}
         <div className="h-px bg-white/5" />
-        <form action={formCreateStar} className="">
+        <form 
+        action={async (formData) => {
+          await formCreateStar(formData)
+          toggleAfterRant()
+        }} 
+        className="">
           {/* Textarea */}
           <textarea
             rows={4}
