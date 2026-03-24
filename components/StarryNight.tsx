@@ -244,8 +244,8 @@ function ActionModal() {
         
       </div>
       <div className={styles.actions} onClick={() => setIsOpen(true)}>
-        <button className="relative overflow-hidden px-10 py-3.5 rounded-xl bg-[#1a1f5e] text-[#c8d4f0] text-sm tracking-widest lowercase border border-[#3d4a99] font-serif transition-all duration-300 hover:bg-[#222880] hover:border-[#6b7ee8] hover:text-[#e8eeff] hover:-translate-y-px hover:shadow-[0_4px_24px_rgba(80,100,220,0.25)] active:scale-95 cursor-pointer">
-          let it out
+        <button className="relative overflow-hidden px-10 py-3.5 rounded-xl bg-[#1a1f5e] text-[#c8d4f0] text-sm tracking-widest border border-[#3d4a99] font-serif transition-all duration-300 hover:bg-[#222880] hover:border-[#6b7ee8] hover:text-[#e8eeff] hover:-translate-y-px hover:shadow-[0_4px_24px_rgba(80,100,220,0.25)] active:scale-95 cursor-pointer">
+          Let it out
         </button>
       </div>
       <ActionModal />
