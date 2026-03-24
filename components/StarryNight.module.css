@@ -136,7 +136,7 @@
   border-radius: 2px;
   transform: rotate(-30deg);
   opacity: 0;
-  animation: shoot 8s ease-in infinite;
+  animation: shoot 15s ease-in infinite;
 }
 
 .oneTimeShootingStar {

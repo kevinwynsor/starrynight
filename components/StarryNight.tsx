@@ -88,6 +88,7 @@ export default function StarryNight() {
   }
 
   function closeQuoteModal() {
+    setShowStar(false)
     setIsOpen(false);
     setAfterRant(false);
     setShowStar(true)
