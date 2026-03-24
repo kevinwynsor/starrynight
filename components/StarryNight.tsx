@@ -59,6 +59,7 @@ export default function StarryNight() {
     channel
       .on('broadcast', { event: 'new_star' }, (payload) => {
         setStarCount((prevCount) => (parseInt(prevCount) + 1).toString());
+        fetchStars()
       }).subscribe((status) => {
       console.log('STATUS:', status);
       });
