@@ -38,7 +38,7 @@ export async function addStar(prevState: unknown, data: FormData) {
   try{
   await prisma.stars.create({
     data: {
-      content: data.get('content') as string,
+      content: 'someone added a star',
     },
   })
   const channel = supabase.channel('stars')
