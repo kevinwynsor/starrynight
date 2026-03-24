@@ -159,21 +159,21 @@
     39% 35%
   );
 
-  animation: oneTimeShoot 20s ease-in forwards;
+  animation: oneTimeShoot 20s ease-in infinite;
 }
 
 @keyframes oneTimeShoot {
-  0%   { opacity: 0; transform: rotate(-30deg) translateX(0); }
-  2%   { opacity: 1; }
-  10%  { opacity: 0; transform: rotate(-30deg) translateX(620px); }
+  0%   { opacity: 0; transform: rotate(-30deg) translateX(-300px); }
+  5%   { opacity: 1; }
+  10%  { opacity: 0; transform: rotate(-30deg) translateX(820px); }
   100% { opacity: 0; transform: rotate(-30deg) translateX(320px); }
 }
 
 @keyframes shoot {
   0%   { opacity: 0; transform: rotate(-30deg) translateX(0); }
   2%   { opacity: 1; }
-  10%  { opacity: 0; transform: rotate(-30deg) translateX(320px); }
-  100% { opacity: 0; transform: rotate(-30deg) translateX(320px); }
+  10%  { opacity: 0; transform: rotate(-30deg) translateX(-320px); }
+  100% { opacity: 0; transform: rotate(-30deg) translateX(-320px); }
 }
 
 /* ── TERRAIN / HILLS ── */

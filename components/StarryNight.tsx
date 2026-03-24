@@ -230,7 +230,7 @@ function ActionModal() {
           className={styles.shootingStar}
           style={{
             top: `${s.top}%`,
-            left: `${s.left}%`,
+            left: `${s.left+2}%`,
             animationDelay: `${s.delay}s`,
           }}
         />
@@ -241,7 +241,7 @@ function ActionModal() {
           className={styles.oneTimeShootingStar}
           style={{
             top: `${10 * 40 + 5}px`,
-            left: `${5 * 60 + 10}px`
+            left: `${3 * 60 + 10}px`
         }}
       />
         )}
