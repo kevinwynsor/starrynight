@@ -159,7 +159,7 @@
     39% 35%
   );
 
-  animation: oneTimeShoot 20s ease-in infinite;
+  animation: oneTimeShoot 20s ease-in;
 }
 
 @keyframes oneTimeShoot {
