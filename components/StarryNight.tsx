@@ -16,32 +16,6 @@ interface CampfireActionsProps {
   onAction?: (action: boolean) => void;
 }
 
-export function CampfireActions({ onAction }: CampfireActionsProps) {
-  const actions: Action[] = [
-    {
-      id: "rest",
-      label: "Rest",
-      icon: 'let it out',
-      onClick: () => onAction?.(true),
-    },
-  ];
-    return (
-    <div className={styles.actions}>
-      {actions.map((action) => (
-        <button
-          key={action.id}
-          className={styles.actionBtn}
-          onClick={action.onClick}
-          aria-label={action.label}
-        >
-          <div className={styles.btnCard}>{action.icon}</div>
-          <span className={styles.btnLabel}>{action.label}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export default function StarryNight() {
   const [state, formCreateStar, createStarIsPending] = useActionState(addStar, null)
   const [starCount, setStarCount] = useState('');
@@ -269,7 +243,11 @@ function ActionModal() {
         <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are {starCount ? starCount : <div className={styles.divStar}/>} stars in the sky</p>
         
       </div>
-      <CampfireActions onAction={setIsOpen}/>
+      <div className={styles.actions} onClick={() => setIsOpen(true)}>
+        <button className="relative overflow-hidden px-10 py-3.5 rounded-xl bg-[#1a1f5e] text-[#c8d4f0] text-sm tracking-widest lowercase border border-[#3d4a99] font-serif transition-all duration-300 hover:bg-[#222880] hover:border-[#6b7ee8] hover:text-[#e8eeff] hover:-translate-y-px hover:shadow-[0_4px_24px_rgba(80,100,220,0.25)] active:scale-95 cursor-pointer">
+          let it out
+        </button>
+      </div>
       <ActionModal />
       <Quotes afterRant={afterRant} closeModal={closeQuoteModal}/>
     </div>
