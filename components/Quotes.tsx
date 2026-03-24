@@ -47,7 +47,7 @@ export default function Quotes({afterRant, closeModal}: {afterRant: boolean, clo
       onRequestClose={closeModal}
       ariaHideApp={false}
       overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
-      className="relative w-full max-w-sm mx-4 outline-none"
+      className="relative w-full max-w-xl mx-4 outline-none"
     >
       <div className='text-center'>
       <div className={styles.hidingStar}/>
@@ -65,25 +65,25 @@ export default function Quotes({afterRant, closeModal}: {afterRant: boolean, clo
             Message From the Moon
           </span>
         {/* Header */}
-        <div className="flex flex-col items-start min-h-40 place-content-center gap-5">
+        <div className="flex flex-col items-start min-h-40 place-content-center gap-5 min-h-52">
           {content.type === 'verse' ? (
           <>
-            <h2 className="text-base font-medium leading-snug tracking-tight font-serif text-[#7d9acc] italic">
+            <h2 className="text-lg font-medium leading-snug tracking-tight font-serif text-[#7d9acc] italic">
               {content.value.text} 
             </h2>
-            <h2 className="text-sm leading-relaxed text-[#7d9acc]">
+            <h2 className="text-base leading-relaxed text-[#7d9acc]">
               {content.value.body} 
             </h2>
-            <h2 className="text-xs tracking-wide text-[#7d9acc]">
+            <h2 className="text-sm tracking-wide text-[#7d9acc]">
               — {content.value.verse}
             </h2>
           </>
           ) : (
             <>
-              <h2 className="text-sm leading-relaxed text-[#7d9acc] italic font-medium">
+              <h2 className="text-base leading-relaxed text-[#7d9acc] italic font-medium">
                 {content.value.text}
               </h2>
-              <h2 className="text-xs tracking-wide text-[#7d9acc]">
+              <h2 className="text-sm tracking-wide text-[#7d9acc]">
                 {content.value.body}
               </h2>
             </>
