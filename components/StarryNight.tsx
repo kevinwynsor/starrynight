@@ -104,7 +104,7 @@ function ActionModal() {
       closeTimeoutMS={150}
       ariaHideApp={false}
       overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
-      className="relative w-full max-w-sm mx-4 outline-none"
+      className="relative w-full max-w-xl mx-4 outline-none"
     >
       {/* Card */}
       <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 flex flex-col gap-4">
@@ -134,7 +134,7 @@ function ActionModal() {
             name="content"
             onChange={(e) => setText(e.target.value)}
             placeholder={meta}
-            className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors"
+            className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors min-h-52"
           />
   
           {/* Footer */}
