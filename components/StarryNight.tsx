@@ -74,6 +74,11 @@ export default function StarryNight() {
   }, [state]);
 
   useEffect(() => {
+    
+    console.log('show star:', showStar);
+  }, [showStar]);
+
+  useEffect(() => {
     if(isOpen) setShowStar(false);
   }, [isOpen]);
 
@@ -88,10 +93,13 @@ export default function StarryNight() {
   }
 
   function closeQuoteModal() {
+    console.log('close')
     setShowStar(false)
     setIsOpen(false);
     setAfterRant(false);
-    setShowStar(true)
+    setTimeout(() => {
+      setShowStar(true)
+    }, 50)
   }
 
 function ActionModal() {
