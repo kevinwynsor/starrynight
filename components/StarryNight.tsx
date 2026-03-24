@@ -59,7 +59,7 @@ export default function StarryNight() {
     channel
       .on('broadcast', { event: 'new_star' }, (payload) => {
         setStarCount((prevCount) => (parseInt(prevCount) + 1).toString());
-        fetchStars()
+        setShowStar(true)
       }).subscribe((status) => {
       console.log('STATUS:', status);
       });
@@ -90,7 +90,6 @@ export default function StarryNight() {
   function closeQuoteModal() {
     setIsOpen(false);
     setAfterRant(false);
-    setShowStar(true)
   }
 
 function ActionModal() {
