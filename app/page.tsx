@@ -8,6 +8,7 @@ import WinsScreen, { Win } from "@/extras/WinsScreen";
 import TimelineScreen, { TimelineEntry } from "@/extras/TimelineScreen";
 import ProfileScreen from "@/extras/ProfileScreen";
 import StarryNight from "@/components/StarryNight";
+import { Analytics } from "@vercel/analytics/next"
 
 type Tab = "home" | "rant" | "wins" | "timeline" | "profile";
 type Flow = "idle" | "ranting" | "feedback";
@@ -121,6 +122,9 @@ export default function App() {
     //     onNavigate={(tab) => setActiveTab(tab)}
     //   />
     // </div>
-    <StarryNight/>
+    <>
+      <Analytics/>
+      <StarryNight/>
+    </>
   );
 }
