@@ -179,6 +179,9 @@ export default function Portfolio() {
             <a className="underline-offset-4 hover:text-[#F4D58D] hover:underline" href={profile.github}>
               GitHub: kevinwynsor
             </a>
+            <a className="underline-offset-4 hover:text-[#F4D58D] hover:underline" href={profile.linkedin}>
+              LinkedIn: Kevin Wynsor U. Kong
+            </a>
           </div>
         </Section>
       </main>

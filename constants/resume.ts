@@ -5,6 +5,7 @@ export const profile = {
     "Programmer with experience in banking batch interface development and full-stack software development. Hands-on experience developing and testing COBOL programs and JCL job components for z/OS, validating batch outputs with business stakeholders, coordinating component turnovers through ServiceNow, and supporting UAT and production operations.",
   email: "kevinwynsor@gmail.com",
   github: "https://github.com/kevinwynsor",
+  linkedin: "https://www.linkedin.com/in/kevin-wynsor-kong-048741236/",
 };
 
 export const experience = [
