@@ -1,255 +1,84 @@
-"use client";
-import { addStar, getStars } from "@/app/actions";
 import styles from "./StarryNight.module.css";
-import { useActionState, useState, useEffect, use } from "react";
-import Modal from "react-modal";
-import Quotes from "./Quotes";
-import { supabase } from "@/lib/supabase";
 
-type Action = {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  onClick: () => void;
-}
-interface CampfireActionsProps {
-  onAction?: (action: boolean) => void;
+// Seeded so the server and client always render the same sky.
+function seededRandom(seed: number) {
+  return () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
 }
 
+const random = seededRandom(20220801);
+
+const stars = Array.from({ length: 170 }, (_, id) => ({
+  id,
+  top: random() * 100,
+  left: random() * 100,
+  size: random() * 2.5 + 0.5,
+  delay: random() * 6,
+  duration: random() * 3 + 2,
+  opacity: random() * 0.7 + 0.3,
+}));
+
+const shootingStars = Array.from({ length: 5 }, (_, id) => ({
+  id,
+  top: random() * 40 + 5,
+  left: random() * 60 + 12,
+  delay: id * 4 + random() * 3,
+}));
+
+/** Fixed night sky that sits behind the whole page. */
 export default function StarryNight() {
-  const [state, formCreateStar, createStarIsPending] = useActionState(addStar, null)
-  const [starCount, setStarCount] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const [afterRant, setAfterRant] = useState(false);
-  const [showStar, setShowStar] = useState(false);
-
-  async function fetchStars() {
-    const response = await getStars();
-    setStarCount(response.length.toString());
-  }
-
-  useEffect(() => {
-    const channel = supabase.channel('stars')
-    channel
-      .on('broadcast', { event: 'new_star' }, (payload) => {
-        setStarCount((prevCount) => (parseInt(prevCount) + 1).toString());
-        setShowStar(true)
-      }).subscribe((status) => {
-      console.log('STATUS:', status);
-      });
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchStars();
-    console.log('fetching stars');
-  }, [state]);
-
-  useEffect(() => {
-    
-    console.log('show star:', showStar);
-  }, [showStar]);
-
-  useEffect(() => {
-    if(isOpen) setShowStar(false);
-  }, [isOpen]);
-
-
-  function toggleAfterRant() {
-    closeModal();
-    setAfterRant(!afterRant);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function closeQuoteModal() {
-    console.log('close')
-    setShowStar(false)
-    setIsOpen(false);
-    setAfterRant(false);
-    setTimeout(() => {
-      setShowStar(true)
-    }, 50)
-  }
-
-function ActionModal() {
-  const meta = "What's on your mind?"
-  
-  const [text, setText] = useState("");
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      onAfterClose={() => setText("")}
-      closeTimeoutMS={150}
-      ariaHideApp={false}
-      overlayClassName="fixed inset-0 z-50 flex items-center justify-center bg-[#020510]/75 backdrop-blur-sm"
-      className="relative w-full max-w-xl mx-4 outline-none"
-    >
-      {/* Card */}
-      <div className="rounded-2xl border border-white/10 bg-[#0b1628] shadow-[0_0_80px_rgba(40,80,180,0.2)] p-6 flex flex-col gap-4">
- 
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-medium tracking-widest uppercase text-[#7d9acc]">
-            {meta}
-          </h2>
-          <button
-            onClick={closeModal}
-            className="text-[#3a4e6a] hover:text-[#8ab0d8] transition-colors text-lg leading-none"
-            aria-label="Close"
-          >
-            ✕
-          </button>
-        </div>
- 
-        {/* Divider */}
-        <div className="h-px bg-white/5" />
-        <form 
-        action={async (formData) => {
-          await formCreateStar(formData)
-          toggleAfterRant()
-        }} 
-        className="">
-          {/* Textarea */}
-          <textarea
-            rows={4}
-            autoFocus
-            value={text}
-            name="content"
-            onChange={(e) => setText(e.target.value)}
-            placeholder={meta}
-            className="w-full resize-none rounded-lg bg-[#060f1c] border border-white/8 text-[#c0d4f0] text-sm leading-relaxed placeholder-[#2e3f5c] px-4 py-3 outline-none focus:border-[#2a5090]/60 transition-colors min-h-52"
-          />
-  
-          {/* Footer */}
-          <div className="flex justify-end">
-            <button
-              disabled={!text.trim()}
-              className="px-5 py-2 rounded-lg bg-[#162d54] border border-[#2a4f8a]/40 text-[#89b4e8] text-xs font-medium tracking-wider uppercase hover:bg-[#1e3f70] hover:text-[#b8d4f8] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </Modal>
-  );
-}
-
-  const now = new Date();
-  const hour = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Manila',
-    hour: '2-digit',
-    hour12: false
-  }).format(now);
-  const greeting =
-    parseInt(hour) < 5
-      ? "Still awake"
-      : parseInt(hour) < 12
-      ? "Good morning"
-      : parseInt(hour) < 17
-      ? "Good afternoon"
-      : parseInt(hour) < 24
-      ? "Good evening"
-      : "Tonight";
-
-      
-  
-  // Generate stars
-  const stars = Array.from({ length: parseInt(starCount) }, (_, i) => ({ 
-    id: i,
-    top: Math.random() * 75,
-    left: Math.random() * 100,
-    size: Math.random() * 2.5 + 0.5,
-    delay: Math.random() * 6,
-    duration: Math.random() * 3 + 2,
-    opacity: Math.random() * 0.7 + 0.3,
-  }));
-
-  // Shooting stars
-  const shootingStars = Array.from({ length: 5 }, (_, i) => ({
-    id: i,
-    top: Math.random() * 40 + 5,
-    left: Math.random() * 60 + 10,
-    delay: i * 4 + Math.random() * 3,
-  }));
-
-  return (
-    <div className={styles.scene}>
-      {/* Sky gradient layers */}
+    <div className={styles.scene} aria-hidden="true">
       <div className={styles.sky} />
       <div className={styles.skyGlow} />
 
-      {/* Moon */}
-      <div className={styles.moonContainer}>
-        <div className={styles.moon}>
-          <div className={styles.moonCrater1} />
-          <div className={styles.moonCrater2} />
-          <div className={styles.moonCrater3} />
-        </div>
-        <div className={styles.moonHalo} />
-      </div>
-
-      {/* Stars */}
       {stars.map((s) => (
         <div
           key={s.id}
           className={styles.star}
-          style={{
-            top: `${s.top}%`,
-            left: `${s.left}%`,
-            width: `${s.size}px`,
-            height: `${s.size}px`,
-            animationDelay: `${s.delay}s`,
-            animationDuration: `${s.duration}s`,
-            opacity: s.opacity,
-          }}
+          style={
+            {
+              top: `${s.top}%`,
+              left: `${s.left}%`,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animationDelay: `${s.delay}s`,
+              animationDuration: `${s.duration}s`,
+              "--opacity": s.opacity,
+            } as React.CSSProperties
+          }
         />
       ))}
 
-      {/* Shooting stars */}
       {shootingStars.map((s) => (
         <div
           key={s.id}
           className={styles.shootingStar}
           style={{
             top: `${s.top}%`,
-            left: `${s.left+2}%`,
+            left: `${s.left}%`,
             animationDelay: `${s.delay}s`,
           }}
         />
       ))}
-      {showStar && (
-        <div
-          key={showStar.toString()}
-          className={styles.oneTimeShootingStar}
-          style={{
-            top: `${10 * 40 + 5}px`,
-            left: `${3 * 60 + 10}px`
-        }}
-      />
-        )}
-      
-      {/* Milky Way band */}
+
       <div className={styles.milkyWay} />
-      {/* Top label */}
-      <div className="relative z-10 pt-20 text-center animate-fadeUp" style={{ animationDelay: "0.1s", opacity: 0 }}>
-        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">{greeting}</p>
-        <p className="text-xs tracking-[0.18em] uppercase text-[#7d8cb3]">There are {starCount ? starCount : <div className={styles.divStar}/>} stars in the sky</p>
-        
+    </div>
+  );
+}
+
+/** The moon scrolls away with the hero so it never sits behind body text. */
+export function Moon() {
+  return (
+    <div className={styles.moonContainer} aria-hidden="true">
+      <div className={styles.moon}>
+        <div className={styles.moonCrater1} />
+        <div className={styles.moonCrater2} />
+        <div className={styles.moonCrater3} />
       </div>
-      <div className={styles.actions} onClick={() => setIsOpen(true)}>
-        <button className="relative overflow-hidden px-10 py-3.5 rounded-xl bg-[#1a1f5e] text-[#c8d4f0] text-sm tracking-widest border border-[#3d4a99] font-serif transition-all duration-300 hover:bg-[#222880] hover:border-[#6b7ee8] hover:text-[#e8eeff] hover:-translate-y-px hover:shadow-[0_4px_24px_rgba(80,100,220,0.25)] active:scale-95 cursor-pointer">
-          Let it out
-        </button>
-      </div>
-      <ActionModal />
-      <Quotes afterRant={afterRant} closeModal={closeQuoteModal}/>
+      <div className={styles.moonHalo} />
     </div>
   );
 }

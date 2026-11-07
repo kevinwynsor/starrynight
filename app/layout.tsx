@@ -16,15 +16,15 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Starlight",
-  description: "Emotional release and small wins tracking",
+  title: "Kevin Wynsor U. Kong | Mainframe & Full-Stack Developer",
+  description:
+    "Portfolio of Kevin Wynsor U. Kong, a mainframe and full-stack developer working across banking batch interfaces and web applications.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#0B0F1A",
+  themeColor: "#020510",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
-      <body className="bg-[#0B0F1A] font-sans text-[#E8EAF2] antialiased">
+      <body className="bg-[#020510] font-sans text-[#E8EAF2] antialiased">
         {children}
       </body>
     </html>
